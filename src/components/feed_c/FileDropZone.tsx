@@ -29,7 +29,7 @@ export default function FileDropZone({ onFilesSelected }) {
 
   return (
     <label
-      className={`border-2 border-dashed px-4 py-2 rounded-md cursor-pointer transition-all ${
+      className={`boder-gray-800 text-gray-500 bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:boder-gray-100 text-sm border-2 border-dashed mt-2 px-4 py-2 rounded-md cursor-pointer transition-all ${
         dragging ? "border-blue-500 bg-blue-100" : "border-gray-400"
       }`}
       onDragOver={handleDragOver}

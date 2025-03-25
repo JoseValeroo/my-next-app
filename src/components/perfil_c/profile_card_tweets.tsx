@@ -115,16 +115,16 @@ const CardTweets: React.FC<CardTweetsProps> = ({ tweets, user, handleDeleteTweet
                     className="rounded-full" 
                   />
                   <div className="flex-1">
-                    <h4 className="font-bold text-white">{tweet.user_handle}</h4>
+                    <h4 className="font-bold text-gray-900 dark:text-white">{tweet.user_handle}</h4>
                     {editingTweetId === tweet.tweet_id ? (
                       <textarea
-                        className="w-full p-2 text-black rounded-lg"
+                        className="w-full p-2 text-gray-800 bg-gray-100 rounded-lg"
                         value={editedText}
                         onChange={(e) => setEditedText(e.target.value)}
                       />
                     ) : (
                       <>
-                        <p className="mt-1 text-white dark:text-gray-400">{tweet.tweet_text}</p>
+                        <p className="mt-1 text-gray-800 dark:text-gray-200">{tweet.tweet_text}</p>
                         {/* Renderizar medios si existen */}
                         {renderMedia(tweet.media_urls)}
                       </>

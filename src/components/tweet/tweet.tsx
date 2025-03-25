@@ -135,7 +135,7 @@ const Tweet = ({ tweet, onLike, onComment, onRetweetChange }) => {
         >
             {tweet.retweeter && (
                 <p className="text-sm text-gray-500">
-                    Retweteado por @{tweet.retweeter}
+                    Retweeteado por @{tweet.retweeter}
                 </p>
             )} <br />
             <div className="flex items-center mb-4">
@@ -156,7 +156,7 @@ const Tweet = ({ tweet, onLike, onComment, onRetweetChange }) => {
                 {tweet.tweet_text || tweet.comment_text}
             </p>
             {renderMedia()}
-            <div className="flex items-center justify-start space-x-4 text-gray-500 dark:text-gray-400">
+            <div className="flex items-center justify-start space-x-4 text-gray-500 dark:text-gray-400 mt-8">
                 <Button variant="ghost" size="sm" onClick={() => onLike(tweet)}>
                     <Heart className="mr-2 h-4 w-4" color={tweet.liked ? "red" : "currentColor"} fill={tweet.liked ? "red" : "none"} />
                     {tweet.num_likes || 0}

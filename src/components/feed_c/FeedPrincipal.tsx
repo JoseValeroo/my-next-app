@@ -205,7 +205,7 @@ export default function Feed() {
               {selectedFiles.map((file, index) => (
                 <div
                   key={index}
-                  className="flex items-center bg-gray-100 px-2 py-1 rounded text-sm text-gray-500"
+                  className="flex items-center bg-gray-200 dark:bg-gray-100 px-2 py-1 rounded text-sm text-gray-500"
                 >
                   <span>{file.name}</span>
                   <button
