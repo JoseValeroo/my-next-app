@@ -21,7 +21,7 @@ function MetricCard({ title, value, change, isPositive = true }: MetricCardProps
             {isPositive ? <ArrowUpIcon className="inline h-4 w-4" /> : <ArrowDownIcon className="inline h-4 w-4" />}
             {Math.abs(change)}%
           </span>{" "}
-          compared to last month
+          comparado con mes anterior
         </p>
       </CardContent>
     </Card>

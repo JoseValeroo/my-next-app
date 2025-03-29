@@ -15,7 +15,7 @@ export default function CardCerrarSesion() {
 
   return (
     <Card
-      className="w-full max-w-md transition-all duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-lg 
+      className="w-full max-w-lg transition-all duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-lg 
       bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700"
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}

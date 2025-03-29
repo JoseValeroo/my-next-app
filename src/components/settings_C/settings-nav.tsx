@@ -4,25 +4,25 @@ import { User, Bell, Shield, BarChart3, Eye, Globe, Key, CreditCard, MessageSqua
 
 const settingsNav = [
   {
-    section: "Account",
+    section: "Cuenta",
     items: [
      {
-        name: "Home",
+        name: "Inicio",
         href: "/",
         icon: Home,
      },
      {
-        name: "Profile",
+        name: "Perfil",
         href: "/pages/profile",
         icon: User,
       },
       {
-        name: "Notifications",
+        name: "Notificationes",
         href: "/settings/notifications",
         icon: Bell,
       },
       {
-        name: "Privacy & Safety",
+        name: "Privacidad",
         href: "/settings/privacy",
         icon: Shield,
       },
@@ -32,47 +32,47 @@ const settingsNav = [
     section: "Preferences",
     items: [
       {
-        name: "Content Filters",
+        name: "Filtros de contenido",
         href: "/settings/filters",
         icon: Eye,
       },
       {
-        name: "Language & Region",
+        name: "Idioma & Región",
         href: "/settings/language",
         icon: Globe,
       },
       {
-        name: "Accessibility",
+        name: "Accessibilidad",
         href: "/settings/accessibility",
         icon: MessageSquare,
       },
     ],
   },
   {
-    section: "Data & Analytics",
+    section: "Análisis & Datos",
     items: [
       {
-        name: "Usage Data",
+        name:"Datos de uso",
         href: "/settings/usage",
         icon: BarChart3,
       },
       {
-        name: "Data Export",
+        name: "Exportar datos",
         href: "/settings/export",
         icon: Database,
       },
     ],
   },
   {
-    section: "Billing",
+    section: "Facturación",
     items: [
       {
-        name: "Payment Methods",
+        name: "Métodos de pago",
         href: "/settings/payment",
         icon: CreditCard,
       },
       {
-        name: "API Keys",
+        name: "Claves API",
         href: "/settings/api-keys",
         icon: Key,
       },

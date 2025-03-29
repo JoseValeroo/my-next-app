@@ -50,7 +50,7 @@ export default function MessagesPage() {
             <h3 className="text-3xl mt-10 font-medium text-gray-900 dark:text-white">Mensajes</h3>
             <Card className="mt-8 bg-white dark:bg-gray-900 ">
               <CardHeader>
-                <CardTitle className="text-2xl text-gray-900 dark:text-white">Chat with John</CardTitle>
+                <CardTitle className="text-2xl text-gray-900 dark:text-white">Chat con John</CardTitle>
               </CardHeader>
               <CardContent>
                 <ScrollArea className="h-[600px] pr-4">
@@ -61,9 +61,9 @@ export default function MessagesPage() {
                           <AvatarImage src={`https://api.dicebear.com/6.x/initials/svg?seed=${message.sender}`} />
                           <AvatarFallback>{message.sender[0]}</AvatarFallback>
                         </Avatar>
-                        <div className={`mx-2 py-2 px-4 rounded-lg ${message.sender === 'You' ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-800'}`}>
+                        <div className={`mx-2 py-2 px-4 rounded-lg ${message.sender === 'You' ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-white'}`}>
                           <p>{message.content}</p>
-                          <p className="text-xs text-gray-800 dark:text-gray-700 mt-1">
+                          <p className="text-xs text-gray-800 dark:text-gray-400 mt-1">
                             {new Date(message.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                           </p>
                         </div>

@@ -147,7 +147,7 @@ const WeatherWidget = ({ summary = false, location, onSummaryClick }: WeatherWid
         onClick={onSummaryClick}
       >
         <h3 className="text-lg font-bold mb-2 text-gray-800 dark:text-white">
-          🌤️ Tiempo en {location || "tu ubicación"}
+          🌤️ El tiempo en {location || "tu ubicación"}
         </h3>
         {forecast[0] && (
           <div className="flex flex-wrap items-center gap-4 mb-1">

@@ -16,7 +16,7 @@ export function RevenueChart() {
   return (
     <Card className="col-span-4">
       <CardHeader>
-        <CardTitle>Product Revenue</CardTitle>
+        <CardTitle>Ingresos por producto</CardTitle>
       </CardHeader>
       <CardContent className="h-[300px]">
         <ResponsiveContainer width="100%" height="100%">

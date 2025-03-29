@@ -36,29 +36,29 @@ const NewEventModal: React.FC<NewEventModalProps> = ({ isOpen, onClose, onCreate
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px] bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg shadow-lg">
         <DialogHeader>
-          <DialogTitle className="text-gray-600 dark:text-gray-200">Create New Event</DialogTitle>
+          <DialogTitle className="text-gray-600 dark:text-gray-200">Crear nuevo evento</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4 text-gray-600 dark:text-gray-200">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="title" className="text-right">Title</Label>
+              <Label htmlFor="title" className="text-right">Título</Label>
               <Input id="title" value={title} onChange={(e) => setTitle(e.target.value)} className="col-span-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white" />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="description" className="text-right">Description</Label>
+              <Label htmlFor="description" className="text-right">Descripción</Label>
               <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} className="col-span-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white" />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right">Start</Label>
+              <Label className="text-right">Comienzo</Label>
               <div className="col-span-3">{startDate.toLocaleString()}</div>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label className="text-right">End</Label>
+              <Label className="text-right">Fin</Label>
               <div className="col-span-3">{endDate.toLocaleString()}</div>
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit" className="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700">Create Event</Button>
+            <Button type="submit" className="bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-300 dark:hover:bg-gray-700">Crear evento</Button>
           </DialogFooter>
         </form>
       </DialogContent>
