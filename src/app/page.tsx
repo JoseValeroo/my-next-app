@@ -8,6 +8,7 @@ import { ArticleCard } from "@/components/CardPrincipal/article-card";
 import { CurrencyCard } from "@/components/CardsMonedas/currency-card";
 import { SocialLinks } from "@/components/CardRedesSociales/social-links";
 import { CardPensamientos } from "@/components/CardPensamientos/CardPensamientos";
+import WeatherWidget from "@/components/Tiempo/WeatherWidget";
 
 import CardAutorizacion from "@/components/ui/cardAutorizacion";
 import CardEventos from "@/components/CardEventosPorUsuario/CardEventos";
@@ -37,7 +38,6 @@ const currencyPairs: CurrencyPair[] = [
   { base: "cardano", quote: "usd", value: 0.4, change: -0.1234 },
 ];
 
-
 export default function HomePage() {
   // Usar el AuthContext para obtener el usuario
   const { user, loading: authLoading } = useAuth();
@@ -56,20 +56,22 @@ export default function HomePage() {
   // Estado para detectar cambios en la membresía de comunidades
   const [communityUpdated, setCommunityUpdated] = useState(false);
 
+  // Estado para controlar la visualización del WeatherWidget completo en modal
+  const [showFullWeather, setShowFullWeather] = useState(false);
+
   // Efecto para ocultar mensajes después de 3 segundos
   useEffect(() => {
     const timer = setTimeout(() => {
       setNewsMessage("");
       setTweetMessage("");
     }, 2000);
-
     return () => clearTimeout(timer);
   }, [newsMessage, tweetMessage]);
 
   // Cargar tweets según la autenticación
   useEffect(() => {
     if (typeof window === "undefined") return; // Evitar ejecución en SSR
-    
+
     async function loadTweets() {
       console.log("Loading tweets. isAuthenticated:", isAuthenticated);
       setTweets([]); // Reiniciamos tweets previos
@@ -102,7 +104,6 @@ export default function HomePage() {
         setLoading(false);
       }
     }
-  
     if (!authLoading) {
       loadTweets();
     }
@@ -159,7 +160,7 @@ export default function HomePage() {
     if (!authLoading) {
       loadNews();
     }
-  }, [isAuthenticated, authLoading, communityUpdated]); // Se actualiza cuando cambia communityUpdated
+  }, [isAuthenticated, authLoading, communityUpdated]);
 
   return (
     <div className="min-h-screen bg-gray-200 dark:bg-gray-950">
@@ -167,24 +168,34 @@ export default function HomePage() {
       <AnimatePresence>
         {expandedArticle ? (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 overflow-y-auto bg-white dark:bg-gray-900"
-          >
-            <div className="container mx-auto p-4">
-              <button
-                onClick={() => setExpandedArticle(null)}
-                className="mb-4 flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 overflow-y-auto bg-white dark:bg-gray-900"
+        >
+          <div className="container mx-auto p-4 relative">
+            <button
+              onClick={() => setExpandedArticle(null)}
+              className="absolute top-6 right-6 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-gray-600 dark:text-gray-300"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                Back
-              </button>
-              {expandedArticle}
-            </div>
-          </motion.div>
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            {expandedArticle}
+          </div>
+        </motion.div>
         ) : (
           <motion.main initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="container mx-auto p-4">
             {/* Diseño para ordenador y tablet */}
@@ -196,7 +207,6 @@ export default function HomePage() {
                     onClick={setExpandedArticle}
                     isAuthenticated={isAuthenticated}
                   />
-
                   <div className="space-y-6">
                     <ArticleCard
                       key={`static-article2-${isAuthenticated}`}
@@ -243,16 +253,13 @@ export default function HomePage() {
                           name: new Date(tweet.created_at).toLocaleDateString(),
                           likes: tweet.num_likes || 0,
                         }));
-
                         const userInfluence = tweets.reduce<Record<string, number>>((acc, tweet) => {
                           acc[tweet.user_handle] = (acc[tweet.user_handle] || 0) + (tweet.num_likes || 0);
                           return acc;
                         }, {});
-
                         const sortedUsers = Object.entries(userInfluence)
                           .sort((a, b) => Number(b[1]) - Number(a[1]))
                           .slice(0, 3);
-
                         setExpandedArticle(
                           <div className="space-y-4">
                             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -301,6 +308,17 @@ export default function HomePage() {
                 <CardCerrarSesion />
                 <br />
                 <SocialLinks />
+                <br />
+                {/* Renderizamos el WeatherWidget en resumen y pasamos la ubicación del usuario */}
+                {isAuthenticated ? (
+                  <WeatherWidget
+                    summary={true}
+                    location={user.location}
+                    onSummaryClick={() => setShowFullWeather(true)}
+                  />
+                ) : (
+                  <WeatherWidget />
+                )}
               </div>
             </div>
             {/* Diseño para móvil */}
@@ -362,16 +380,13 @@ export default function HomePage() {
                             name: new Date(tweet.created_at).toLocaleDateString(),
                             likes: tweet.num_likes || 0,
                           }));
-
                           const userInfluence = tweets.reduce<Record<string, number>>((acc, tweet) => {
                             acc[tweet.user_handle] = (acc[tweet.user_handle] || 0) + (tweet.num_likes || 0);
                             return acc;
                           }, {});
-
                           const sortedUsers = Object.entries(userInfluence)
                             .sort((a, b) => Number(b[1]) - Number(a[1]))
                             .slice(0, 3);
-
                           setExpandedArticle(
                             <div className="space-y-4">
                               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
@@ -420,11 +435,58 @@ export default function HomePage() {
                 <div className="flex justify-center items-center">
                   <SocialLinks />
                 </div>
+                <div className="flex justify-center items-center">
+                  {isAuthenticated ? (
+                    <WeatherWidget
+                      summary={true}
+                      location={user.location}
+                      onSummaryClick={() => setShowFullWeather(true)}
+                    />
+                  ) : (
+                    <WeatherWidget />
+                  )}
+                </div>
               </div>
             </div>
           </motion.main>
         )}
       </AnimatePresence>
+
+      {/* Modal para mostrar el WeatherWidget completo al pulsar en el resumen */}
+      <AnimatePresence>
+        {showFullWeather && (
+          <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
+        >
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg max-w-3xl w-full relative">
+            <button
+              onClick={() => setShowFullWeather(false)}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-gray-600 dark:text-gray-300"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <WeatherWidget summary={false} location={user.location} />
+          </div>
+        </motion.div>
+        )}
+      </AnimatePresence>
+
       <Footer />
     </div>
   );

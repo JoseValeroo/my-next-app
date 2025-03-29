@@ -56,7 +56,7 @@ const Tweet = ({ tweet, onLike, onComment, onRetweetChange }) => {
                     if (url.match(/\.(mp4|mov|avi)$/i)) {
                         return (
                             <div key={index} className="relative w-full overflow-hidden rounded-lg">
-                                <VideoPlayer src={url} />
+                                <VideoPlayer src={url} /><br />
                             </div>
                         );
                     }
@@ -69,7 +69,7 @@ const Tweet = ({ tweet, onLike, onComment, onRetweetChange }) => {
                                 onError={(e) => {
                                     e.currentTarget.style.display = "none";
                                 }}
-                            />
+                            /><br></br>
                         </div>
                     );
                 })}
