@@ -11,17 +11,42 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
-import { WiThermometer, WiRain, WiStrongWind, WiHumidity, WiCloud } from "react-icons/wi";
+import { WiThermometer, WiRain, WiStrongWind, WiDaySunny, WiCloudy } from "react-icons/wi";
 import { format, addDays } from "date-fns";
 import { es } from "date-fns/locale";
+import { motion } from "framer-motion";
 
 interface WeatherWidgetProps {
   summary?: boolean;
   location?: any;
   onSummaryClick?: () => void;
+  session?: boolean; // Prop para determinar si hay sesión
 }
 
-const WeatherWidget = ({ summary = false, location, onSummaryClick }: WeatherWidgetProps) => {
+// Función para seleccionar el ícono según algunos datos del pronóstico
+const getLoadingIcon = (forecastData: any[]): JSX.Element => {
+  if (forecastData && forecastData.length > 0) {
+    const today = forecastData[0];
+    // Si hay precipitación significativa
+    if (today.precipitation > 1) {
+      return <WiRain className="text-blue-500 text-4xl" />;
+    }
+    // Si la velocidad del viento es alta
+    if (today.windspeed > 20) {
+      return <WiStrongWind className="text-gray-500 text-4xl" />;
+    }
+    // Si está nublado 
+    if (today.humidity > 80) {
+      return <WiCloudy className="text-gray-500 text-4xl" />;
+    }
+    // Por defecto, sol
+    return <WiDaySunny className="text-yellow-500 text-4xl" />;
+  }
+  // Valor por defecto mientras no se disponga de datos
+  return <WiDaySunny className="text-yellow-500 text-4xl" />;
+};
+
+const WeatherWidget = ({ summary = false, location, onSummaryClick, session }: WeatherWidgetProps) => {
   const [forecast, setForecast] = useState<any[]>([]);
   const [coords, setCoords] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
@@ -29,24 +54,46 @@ const WeatherWidget = ({ summary = false, location, onSummaryClick }: WeatherWid
 
   useEffect(() => {
     let isMounted = true;
-
+  
     const fetchGeocode = async () => {
       try {
+        // Si no se pasa location, intenta obtener la ubicación real del usuario
         if (!location) {
-          if (isMounted) setCoords({ latitude: 40.4168, longitude: -3.7038 });
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                if (isMounted) {
+                  setCoords({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                  });
+                }
+              },
+              (error) => {
+                console.error("Error obteniendo la ubicación:", error);
+                // Si falla, se usa la ubicación por defecto (Madrid)
+                if (isMounted) setCoords({ latitude: 40.4168, longitude: -3.7038 });
+              }
+            );
+          } else {
+            // Si el navegador no soporta geolocalización, se usa la ubicación por defecto
+            if (isMounted) setCoords({ latitude: 40.4168, longitude: -3.7038 });
+          }
           return;
         }
-
+  
+        // Si se pasa location como objeto con latitud y longitud, se utiliza directamente
         if (typeof location === "object" && location.latitude && location.longitude) {
           if (isMounted) setCoords(location);
           return;
         }
-
+  
+        // Si se pasa location como string, se busca la ubicación mediante OpenStreetMap
         const res = await fetch(
           `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json&limit=1`
         );
         const data = await res.json();
-        
+  
         if (data?.length > 0 && isMounted) {
           setCoords({
             latitude: parseFloat(data[0].lat),
@@ -59,13 +106,13 @@ const WeatherWidget = ({ summary = false, location, onSummaryClick }: WeatherWid
         if (isMounted) setCoords({ latitude: 40.4168, longitude: -3.7038 });
       }
     };
-
+  
     fetchGeocode();
-
+  
     return () => {
       isMounted = false;
     };
-  }, [location]);
+  }, [location]);  
 
   useEffect(() => {
     let isMounted = true;
@@ -119,13 +166,21 @@ const WeatherWidget = ({ summary = false, location, onSummaryClick }: WeatherWid
   if (loading) {
     return (
       <div className="p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg mt-4">
-        <div className="flex flex-col items-center justify-center space-y-3 min-h-[200px]">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-500"></div>
+        <div className="flex flex-col items-center justify-center space-y-3 min-h-[100px]">
+          {/* Ícono animado con efecto pulse */}
+          <motion.div
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+            className="h-12 w-12"
+          >
+            {/* Se escoge el ícono según datos si ya existen, o se muestra el default */}
+            {getLoadingIcon(forecast)}
+          </motion.div>
           <p className="text-gray-600 dark:text-gray-300 text-lg font-medium">
             Cargando datos meteorológicos...
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-400 text-center">
-            Obteniendo información para {location || 'tu ubicación'}
+            Obteniendo información para {location || "tu ubicación"}
           </p>
         </div>
       </div>
@@ -184,33 +239,6 @@ const WeatherWidget = ({ summary = false, location, onSummaryClick }: WeatherWid
         Pronóstico en {location || "tu ubicación"}
       </h3>
 
-      {/* Tarjetas de Datos Principales */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center space-x-3">
-          <WiThermometer className="text-3xl text-blue-500" />
-          <div>
-            <p className="text-sm text-gray-500 dark:text-gray-300">Sensación térmica</p>
-            <p className="text-2xl font-bold">{forecast[0]?.apparentTemp}°C</p>
-          </div>
-        </div>
-
-        <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg flex items-center space-x-3">
-          <WiHumidity className="text-3xl text-green-500" />
-          <div>
-            <p className="text-sm text-gray-500 dark:text-gray-300">Humedad máxima</p>
-            <p className="text-2xl font-bold">{forecast[0]?.humidity}%</p>
-          </div>
-        </div>
-
-        <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg flex items-center space-x-3">
-          <WiCloud className="text-3xl text-purple-500" />
-          <div>
-            <p className="text-sm text-gray-500 dark:text-gray-300">Precipitación total</p>
-            <p className="text-2xl font-bold">{forecast[0]?.precipitation}mm</p>
-          </div>
-        </div>
-      </div>
-
       {/* Tarjetas por Día */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         {forecast.map((day) => (
@@ -243,66 +271,65 @@ const WeatherWidget = ({ summary = false, location, onSummaryClick }: WeatherWid
         ))}
       </div>
 
-      {/* Gráfico de Evolución */}
       <div className="mt-8">
-        <ResponsiveContainer width="100%" height={400}>
+        <ResponsiveContainer width="100%" height={300}>
           <ComposedChart
             data={forecast}
             margin={{ top: 20, right: 30, left: 20, bottom: 20 }}
           >
             <defs>
               <linearGradient id="tempMax" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#ff7300" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="#ff7300" stopOpacity={0.2}/>
+                <stop offset="5%" stopColor="#ff7300" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#ff7300" stopOpacity={0.2} />
               </linearGradient>
               <linearGradient id="tempMin" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="#387908" stopOpacity={0.8}/>
-                <stop offset="95%" stopColor="#387908" stopOpacity={0.2}/>
+                <stop offset="5%" stopColor="#387908" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#387908" stopOpacity={0.2} />
               </linearGradient>
             </defs>
             
             <XAxis
               dataKey="date"
               tickFormatter={(date) => format(date, "EEE dd", { locale: es })}
-              tick={{ fill: '#6b7280' }}
+              tick={{ fill: "#6b7280" }}
             />
             
             <YAxis
               yAxisId="left"
-              tick={{ fill: '#6b7280' }}
+              tick={{ fill: "#6b7280" }}
               label={{
-                value: 'Temperatura (°C)',
+                value: "Temperatura (°C)",
                 angle: -90,
-                position: 'insideLeft',
-                fill: '#6b7280'
+                position: "insideLeft",
+                fill: "#6b7280",
               }}
             />
             
             <YAxis
               yAxisId="right"
               orientation="right"
-              tick={{ fill: '#6b7280' }}
+              tick={{ fill: "#6b7280" }}
               label={{
-                value: 'Precipitación (mm) / Viento (km/h)',
+                value: "Precipitación (mm) / Viento (km/h)",
                 angle: -90,
-                position: 'insideRight',
-                fill: '#6b7280'
+                position: "insideRight",
+                fill: "#6b7280",
               }}
             />
             
             <Tooltip
               contentStyle={{
-                background: '#fff',
-                border: 'none',
-                borderRadius: '8px',
-                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                background: "#fff",
+                border: "none",
+                borderRadius: "8px",
+                boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
               }}
-              labelFormatter={(value) => 
+              labelFormatter={(value) =>
                 format(value, "EEEE, dd MMMM", { locale: es })
               }
             />
             
-            <Legend wrapperStyle={{ paddingTop: '20px' }}/>
+            <Legend wrapperStyle={{ paddingTop: "20px" }} />
             
             <Line
               yAxisId="left"
