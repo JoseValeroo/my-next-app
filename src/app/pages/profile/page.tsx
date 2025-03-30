@@ -74,6 +74,8 @@ export default function ProfilePage() {
 
     fetchData();
   }, []);
+
+  // 🔹 Añadir o eliminar  skills
   const handleAddSkill = async (newSkill: string) => {
     const res = await fetch("/api/users/details", {
       method: "POST",
@@ -156,6 +158,51 @@ export default function ProfilePage() {
       interests: prev.interests.filter((i) => i !== interestToDelete),
     }));
   };
+
+ // 🔹 Añadir o eliminar  logros
+ const handleAddAchievements = async (newAchievement: string) => {
+  try {
+    const res = await fetch("/api/users/details", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({
+        category: "achievement",
+        detail_text: newAchievement,
+      }),
+    });
+
+    if (!res.ok) throw new Error("No se pudo añadir el interés");
+
+    // ✅ Actualizar UI sin recargar
+    setUserDetails((prev) => ({
+      ...prev,
+      achievements: [...prev.achievements, newAchievement],
+    }));
+  } catch (err) {
+    console.error("❌ Error al guardar interés:", err);
+  }
+};
+
+const handleDeleteAchievement = async (achievementToDelete: string) => {
+  const res = await fetch("/api/users/details", {
+    method: "DELETE", // 👈 Asumimos que haces DELETE también
+    headers: { "Content-Type": "application/json" },
+    credentials: "include",
+    body: JSON.stringify({
+      category: "achievement",
+      detail_text: achievementToDelete,
+    }),
+  });
+
+  if (!res.ok) throw new Error("Error al eliminar el interés");
+
+  // Quita el interés de la UI
+  setUserDetails((prev) => ({
+    ...prev,
+    achievements: prev.achievements.filter((i) => i !== achievementToDelete),
+  }));
+};
   
 // 🔹 Eliminar tweet
 const handleDeleteTweet = async (tweetId) => {
@@ -281,7 +328,13 @@ const handleEditTweet = async (tweetId, newText) => {
                   transition={{ duration: 0.3 }}
                   className="overflow-hidden mt-2"
                   >
-                  <CardLogros user={user} achievements={userDetails.achievements} />
+                  <CardLogros 
+                    user={user}
+                    achievements={userDetails.achievements}
+                    renderTagsWithColors={renderTagsWithColors}
+                    onAddAchievements={handleAddAchievements}
+                    onDeleteAchievements={handleDeleteAchievement}/>
+                  
                   <CardIntereses
                     user={user}
                     interests={userDetails.interests}
@@ -297,7 +350,13 @@ const handleEditTweet = async (tweetId, newText) => {
              
              {/* Cards info de usuario en pantallas grandes, ocultas en pequeñas*/}
             <div className="hidden lg:block space-y-4">
-              <CardLogros user={user} achievements={userDetails.achievements} />
+              <CardLogros
+                user={user}
+                achievements={userDetails.achievements}
+                renderTagsWithColors={renderTagsWithColors}
+                onAddAchievements={handleAddAchievements}
+                onDeleteAchievements={handleDeleteAchievement}/>
+                
               <CardIntereses
                 user={user}
                 interests={userDetails.interests}
