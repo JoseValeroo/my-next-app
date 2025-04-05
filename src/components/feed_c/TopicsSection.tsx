@@ -66,7 +66,7 @@ export default function TopicsSection() {
         <CardTitle className="text-gray-900 dark:text-white">Popular Topics</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="relative overflow-hidden">
+        <div className="relative h-[4rem] overflow-hidden">
           <AnimatePresence initial={false}>
             <motion.div
               key={topics[currentTopic].topic_id}

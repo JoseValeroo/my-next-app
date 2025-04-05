@@ -29,7 +29,7 @@ export default function CommunitiesSection() {
     <Card className="bg-white dark:bg-gray-900">
       <CardHeader>
         <CardTitle className="text-gray-900 dark:text-white">
-          Communities
+          Comunidades populares
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -41,7 +41,7 @@ export default function CommunitiesSection() {
             >
               <span>{community.name}</span>
               <span className="text-sm text-gray-500 dark:text-gray-300">
-                {community.membersCount.toLocaleString()} members
+                {community.membersCount.toLocaleString()} miembros
               </span>
             </li>
           ))}

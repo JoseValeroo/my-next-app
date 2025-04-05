@@ -64,7 +64,7 @@ const ChatIA = () => {
         )}
         {isLoading && <div className="text-gray-500">La IA está respondiendo...</div>}
       </div>
-      <div className="flex rounded px-2 ">
+      <div className="flex rounded px-2 text-gray-800">
         <Input
           type="text"
           value={input}
