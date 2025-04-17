@@ -19,7 +19,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <div className="h-full">
       <header className="h-12 bg-white dark:bg-gray-900 border-b border-zinc-200 dark:border-zinc-700 flex items-center justify-between px-4">
-        <h1 className="text-lg font-medium text-gray-900 dark:text-white">Admin Dashboard</h1>
+        <h1 className="text-lg font-medium text-gray-900 dark:text-white">Panel de administrador</h1>
         <div className="flex items-center gap-4">
           <button className="p-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800">
             <Bell className="h-5 w-5 text-zinc-600 dark:text-white" />
@@ -40,7 +40,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-white">
-              <DropdownMenuItem onClick={() => router.push("/")}>Ir al home</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push("/")}>Home</DropdownMenuItem>
               <DropdownMenuItem onClick={logout}>Cerrar sesión</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

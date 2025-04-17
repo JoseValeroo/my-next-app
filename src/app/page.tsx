@@ -305,7 +305,7 @@ export default function HomePage() {
               <div>
                 <CardinnfoSesion />
                 <br />
-                <CardCerrarSesion />
+                {/*  <CardCerrarSesion />*/}
                 <br />
                 <SocialLinks />
                 <br />
@@ -421,16 +421,16 @@ export default function HomePage() {
                     </div>
                   </>
                 )}
-                <CardPensamientos key={`mobile-pensamientos-${isAuthenticated}`} isAuthenticated={isAuthenticated} onCommunityUpdate={() => setCommunityUpdated(prev => !prev)}/>
+                {/*<CardPensamientos key={`mobile-pensamientos-${isAuthenticated}`} isAuthenticated={isAuthenticated} onCommunityUpdate={() => setCommunityUpdated(prev => !prev)}/>
                 <CardAutorizacion />
-                {/* <div className="relative grid grid-cols-2 gap-4 mt-6">
+                 <div className="relative grid grid-cols-2 gap-4 mt-6">
                   {currencyPairs.map((pair) => (
                     <CurrencyCard key={`${pair.base}-${pair.quote}`} pair={pair} />
                   ))}
                 </div> */}
                 <div className="flex justify-center items-center">
                   <CardinnfoSesion />
-                  <CardCerrarSesion />
+                 {/*  <CardCerrarSesion />*/}
                 </div>
                 <div className="flex justify-center items-center">
                   <SocialLinks />

@@ -19,8 +19,8 @@ export default function MessagesPage() {
   const currentUserId = user.user_id; // O user.id, según cómo almacenes el ID
 
   return (
-    <div className="flex h-screen bg-gray-100">
-      <div className="w-1/3 border-r">
+    <div className="flex h-screen bg-gray-200 dark:bg-gray-950 text-gray-900 dark:text-white">
+      <div className="w-1/3 border-r border-gray-300 dark:border-gray-800 shadow-lg">
         <BackButton href="/" />
         <MessagingSidebar onSelectContact={(contact) => setSelectedContact(contact)} />
       </div>

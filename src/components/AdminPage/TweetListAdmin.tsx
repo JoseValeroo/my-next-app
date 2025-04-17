@@ -71,7 +71,7 @@ export default function TweetListAdmin() {
         placeholder="Buscar: @usuario o #texto"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full mb-4 px-4 py-2 rounded border border-zinc-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+        className="w-full mb-4 px-4 py-2 rounded-lg border border-zinc-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
       />
       {filteredTweets.map((tweet) => (
         <div key={tweet.tweet_id} className="relative">

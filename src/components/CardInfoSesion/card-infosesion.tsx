@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
-import { User, ShieldCheck } from "lucide-react"; // 🔥 Importa ícono de admin
+import { User, ShieldCheck, LogOut } from "lucide-react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "../ui/badge";
-import { useAuth } from "@/app/context/AuthContext"; // 🔥 Importamos el contexto de autenticación
-import { useRouter } from "next/navigation"; // 🔥 Para redirigir
+import { useAuth } from "@/app/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function SessionInfoCard() {
-  const { user } = useAuth(); // 🔥 Obtenemos el usuario desde el contexto
+  const { user, logout } = useAuth();
   const router = useRouter();
   const [formattedLastLogin, setFormattedLastLogin] = useState("");
 
   useEffect(() => {
-    if (user?.lastLogin) { 
+    if (user?.lastLogin) {
       setFormattedLastLogin(
         `${new Date(user.lastLogin).toLocaleDateString()} - ${new Date(user.lastLogin).toLocaleTimeString()}`
       );
@@ -24,7 +25,7 @@ export default function SessionInfoCard() {
   if (!user) return null;
 
   return (
-    <Card className="w-full max-w-md transition-all duration-300 hover:shadow-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
+    <Card className="w-full max-w-lg transition-all duration-300 hover:shadow-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
       <CardHeader className="flex flex-row items-center gap-4 p-6">
         <div className="relative">
           <Avatar className="h-12 w-12 border-2 border-gray-200 dark:border-gray-700">
@@ -59,28 +60,33 @@ export default function SessionInfoCard() {
             <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
           </div>
 
-          <div className="grid grid-cols-2 gap-2">
-            <div className="rounded-lg border p-3 bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700">
-              <div className="text-sm font-medium text-gray-900 dark:text-gray-100">Dispositivo</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Chrome / Windows</div>
-            </div>
-
-            {/* 🔥 Si es admin, mostramos el botón en lugar de la IP */}
-            {user.role === "admin" ? (
+          {user.role === "admin" ? (
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                className="bg-red-600 px-9 text-white px-2 py-2 rounded-lg hover:bg-red-700 transition flex items-center gap-2"
+                onClick={logout}
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Cerrar sesión
+              </button>
               <button
                 onClick={() => router.push("/pages/admin")}
-                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition flex items-center gap-2"
+                className="bg-green-600 text-white px-2 py-2 rounded-lg hover:bg-green-700 transition flex items-center gap-2"
               >
                 <ShieldCheck size={18} />
                 Panel de administración
               </button>
-            ) : (
-              <div className="rounded-lg border p-3 bg-gray-100 dark:bg-gray-800 border-gray-200 dark:border-gray-700">
-                <div className="text-sm font-medium text-gray-900 dark:text-gray-100">IP</div>
-                <div className="text-sm text-gray-600 dark:text-gray-400">192.168.1.1</div>
-              </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            <Button
+              variant="destructive"
+              className="w-full transition-all duration-300 hover:bg-red-600 active:bg-red-700 dark:hover:bg-red-500 dark:active:bg-red-600"
+              onClick={logout}
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Cerrar sesión
+            </Button>
+          )}
         </div>
       </CardContent>
     </Card>

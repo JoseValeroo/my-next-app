@@ -80,7 +80,7 @@ export default function UserListAdmin() {
         placeholder="Buscar usuarios..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
-        className="w-full mb-4 px-4 py-2 rounded border border-zinc-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+        className="w-full mb-4 px-4 py-2 rounded-lg border border-zinc-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
       />
       <ul className="space-y-2">
         {filteredUsers.map((user) => (

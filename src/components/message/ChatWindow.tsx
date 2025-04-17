@@ -58,7 +58,7 @@ export default function ChatWindow({ contact, currentUserId }) {
 
   return (
     <div className="flex flex-col h-full">
-      <Card className="flex-1 bg-white">
+      <Card className="flex-1 bg-white dark:bg-gray-800">
         <CardHeader>
           <CardTitle>{contact ? `Chat con ${contact.user_handle}` : 'Selecciona un contacto'}</CardTitle>
         </CardHeader>
@@ -93,7 +93,7 @@ export default function ChatWindow({ contact, currentUserId }) {
           onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
           className="flex-1 mr-2"
         />
-        <Button onClick={handleSendMessage}>Enviar</Button>
+        <Button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-md transition" onClick={handleSendMessage}>Enviar</Button>
       </div>
     </div>
   );
