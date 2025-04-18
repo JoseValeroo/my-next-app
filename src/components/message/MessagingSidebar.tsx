@@ -107,7 +107,7 @@ export default function MessagingSidebar({ onSelectContact }) {
         <Separator className="mt-2 bg-gray-300 dark:bg-gray-500" />
         {following.length > 0 ? (
           following.map((user) => (
-            <div key={user.user_id} className="p-2 hover:bg-blue-100 dark:hover:bg-gray-900 cursor-pointer" onClick={() => onSelectContact(user)}>
+            <div key={user.user_id} className="p-2 hover:bg-blue-100 dark:hover:bg-gray-900 rounded-lg cursor-pointer" onClick={() => onSelectContact(user)}>
               <p>{user.user_handle}</p>
             </div>
           ))
@@ -116,12 +116,12 @@ export default function MessagingSidebar({ onSelectContact }) {
         )}
       </div>
 
-      {/* Bloque de Contactos (antes "Chasts Recientes") */}
+      {/* Contactos */}
       <div className="mb-6 bg-white dark:bg-gray-800  rounded rounded-md shadow p-3">
         <h3 className="font-semibold mb-2">Contactos</h3>
         <Separator className="mt-2 bg-gray-300 dark:bg-gray-500" />
         {contacts.map((contact) => (
-          <div key={contact.user_id} className="p-2 border-b hover:bg-gray-50 cursor-pointer relative" 
+          <div key={contact.user_id} className="p-2 hover:bg-blue-100 dark:hover:bg-gray-900 rounded-lg cursor-pointer" 
               onClick={() => onSelectContact(contact)}>
             <div className="flex justify-between items-center">
               <p>{contact.user_handle}</p>

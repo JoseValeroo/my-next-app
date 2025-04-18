@@ -57,11 +57,12 @@ export default function ChatWindow({ contact, currentUserId }) {
   const isOwnMessage = (msg) => msg.sender_id === currentUserId;
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col">
       <Card className="flex-1 bg-white dark:bg-gray-800">
         <CardHeader>
           <CardTitle>{contact ? `Chat con ${contact.user_handle}` : 'Selecciona un contacto'}</CardTitle>
         </CardHeader>
+        <Separator className="mt-2 bg-gray-300 dark:bg-gray-500" />
         <CardContent className="flex-1 overflow-y-auto">
           <ScrollArea className="h-[600px] pr-4">
             {messages.map((msg, index) => (
@@ -84,8 +85,8 @@ export default function ChatWindow({ contact, currentUserId }) {
         </CardContent>
       </Card>
       <Separator className="my-4" />
-      <div className="flex mt-4">
-        <Input
+      <div className="flex items-center p-4 border-t border-gray-300 dark:border-gray-700">
+      <Input
           type="text"
           placeholder="Escribe un mensaje..."
           value={newMessage}
