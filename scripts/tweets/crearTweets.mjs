@@ -4,8 +4,8 @@ import tough from "tough-cookie";
 import { wrapper } from "axios-cookiejar-support";
 
 // 📡 Endpoints
-const LOGIN_URL = "http://localhost:3001/api/auth/login";
-const TWEET_URL = "http://localhost:3001/api/tweets/create";
+const LOGIN_URL = "/api/auth/login";
+const TWEET_URL = "/api/tweets/create";
 
 // 🔍 Usuarios con bio específica (simulados porque no tenemos endpoint)
 const usuarios = [

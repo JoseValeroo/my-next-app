@@ -4,7 +4,7 @@ export async function GET(request: Request) {
   try {
     const cookie = request.headers.get("cookie");
 
-    const res = await fetch("http://localhost:3001/api/admin/users", {
+    const res = await fetch("/api/admin/users", {
       method: "GET",
       headers: {
         Cookie: cookie,

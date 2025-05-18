@@ -26,7 +26,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const authRes = await fetch("/api/auth/me", { credentials: "include" });
+        const authRes = await fetch("/api/auth/profile", { credentials: "include" });
         const authData = await authRes.json();
         if (!authData.authenticated) {
           setUser(null);

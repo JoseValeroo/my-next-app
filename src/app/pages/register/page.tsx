@@ -46,7 +46,7 @@ export default function RegisterPage() {
     }
 
     try {
-      const response = await Axios.post("http://localhost:3001/api/auth/create", {
+      const response = await Axios.post("/api/auth/create", {
         user_handle: username,
         email_address: email,
         first_name: firstName,
@@ -81,7 +81,7 @@ export default function RegisterPage() {
 
   const addUser = () => {
     console.log("📡 Enviando solicitud a backend...");
-    Axios.post("http://localhost:3001/api/auth/create", {
+    Axios.post("/api/auth/create", {
       user_handle: username,
       email_address: email,
       first_name: firstName,

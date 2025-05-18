@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/api/news";
+const API_URL = "/api/news";
 
 /**
  * Obtiene noticias generales (para usuarios no autenticados)

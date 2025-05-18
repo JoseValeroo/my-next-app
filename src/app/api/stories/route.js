@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const API_URL = "http://localhost:3001/api/stories"; // URL del backend
+const API_URL = "/api/stories"; // URL del backend
 
 // Obtener todas las stories (GET)
 export async function GET(req) {

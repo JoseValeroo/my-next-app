@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
     const urlParts = req.nextUrl.pathname.split("/");
     const handle = urlParts.at(-1);
 
-    const res = await fetch(`http://localhost:3001/api/tweets/user/${handle}`, {
+    const res = await fetch(`/api/tweets/user/${handle}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

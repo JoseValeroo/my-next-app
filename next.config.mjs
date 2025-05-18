@@ -1,5 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+   async rewrites() {
+    return [
+      // Primero captura TODO lo de /api/auth y lo envía a Express:
+      {
+        source: '/api/auth/:path*',
+        destination: 'http://192.168.1.136:3001/api/auth/:path*'
+      },
+      // // Después “cualquier otro /api” (si lo necesitas):
+      // {
+      //   source: '/api/:path*',
+      //   destination: 'http://192.168.1.136:3001/api/:path*'
+      // }
+    ]
+  },
   images: {
     domains: [
       'imagenes.elpais.com',

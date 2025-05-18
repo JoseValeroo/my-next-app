@@ -2,7 +2,7 @@ const axios = require("axios");
 const { faker } = require("@faker-js/faker");
 
 // 📡 URL del endpoint de registro de usuarios
-const BASE_URL = "http://localhost:3001/api/auth/create"; 
+const BASE_URL = "/api/auth/create"; 
 
 // 🧠 Función para esperar "ms" milisegundos
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));

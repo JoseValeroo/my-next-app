@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-const API_BASE_URL = "http://localhost:3001/api/tweets";
+const API_BASE_URL = "/api/tweets";
 
 // 📌 GET /api/tweets → Obtener tweets del usuario autenticado
 export async function GET() {

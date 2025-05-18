@@ -36,14 +36,14 @@ export default function LoginPage() {
       setError("");
 
       const response = await Axios.post(
-        "http://localhost:3001/api/auth/login",
+        "/api/auth/login",
         { user_handle: username, password, rememberMe },
         { withCredentials: true }
       );
 
       if (response.status === 200) {
         // 🔥 Obtiene el perfil del usuario después del login
-        const userData = await fetch("/api/auth/me", { credentials: "include" })
+        const userData = await fetch("/api/auth/profile", { credentials: "include" })
           .then((res) => res.json());
 
         if (userData.authenticated) {

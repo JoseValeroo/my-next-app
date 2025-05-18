@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/api/tweets";
+const API_URL = "/api/tweets";
 
 export const fetchTweets = async () => {
   const response = await fetch(API_URL, {

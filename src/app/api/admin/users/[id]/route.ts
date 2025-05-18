@@ -31,11 +31,11 @@ export async function DELETE(req: NextRequest) {
     const urlParts = req.nextUrl.pathname.split("/");
     const id = urlParts.at(-1); // si la ruta es /users/[id]
 
-    const res = await fetch(`http://localhost:3001/api/users/admin/${id}`, {
+    const res = await fetch(`/api/users/admin/${id}`, {
       method: "DELETE",
       headers: {
         Cookie: cookie ?? "",
-        Cookie: cookie ?? "",
+        //Cookie: cookie ?? "",
       },
     });
 

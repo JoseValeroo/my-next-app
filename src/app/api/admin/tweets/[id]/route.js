@@ -6,7 +6,7 @@ export async function DELETE(request) {
     const url = new URL(request.url);
     const id = url.pathname.split("/").pop();
 
-    const res = await fetch(`http://localhost:3001/api/tweets/admin/${id}`, {
+    const res = await fetch(`/api/tweets/admin/${id}`, {
       method: "DELETE",
       headers: {
         Cookie: cookie,

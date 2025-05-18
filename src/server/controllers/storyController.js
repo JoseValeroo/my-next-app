@@ -13,7 +13,7 @@ const createStory = async (req, res) => {
   
       // Subir nuevo story
       const mediaFile = req.files[0];
-      const mediaUrl = `http://localhost:3001/uploads/${mediaFile.filename}`;
+      const mediaUrl = `/uploads/${mediaFile.filename}`;
   
       const insertQuery = `
         INSERT INTO stories (user_id, image_url, description)

@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/api/community";
+const API_URL = "/api/community";
 
 export async function fetchUserCommunities() {
   const token = localStorage.getItem("token");
@@ -22,7 +22,7 @@ export async function fetchUserProfile() {
   const token = localStorage.getItem("token");
 
   try {
-    const response = await fetch("http://localhost:3001/api/auth/profile", {
+    const response = await fetch("api/auth/profile", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

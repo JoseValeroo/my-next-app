@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const response = await fetch("http://localhost:3001/api/users/data", {
+    const response = await fetch("/api/users/data", {
       credentials: "include",
     });
 

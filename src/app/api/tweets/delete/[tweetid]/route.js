@@ -22,7 +22,7 @@ export async function DELETE(req, { params }) {
 
     console.log("🔄 Enviando DELETE a backend con ID:", tweetId);
 
-    const response = await fetch(`http://localhost:3001/api/tweets/delete/${tweetId}`, {
+    const response = await fetch(`/api/tweets/delete/${tweetId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

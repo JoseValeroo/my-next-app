@@ -36,7 +36,7 @@ export async function GET(req: NextRequest) {
     const urlParts = req.nextUrl.pathname.split("/");
     const id = urlParts.at(-2); // si la ruta es .../users/[id]/pdf
 
-    const res = await fetch(`http://localhost:3001/api/users/admin/${id}/pdf`, {
+    const res = await fetch(`/api/users/admin/${id}/pdf`, {
       method: "GET",
       headers: {
         Cookie: cookie ?? "",

@@ -1,4 +1,4 @@
-const API_AUTH_URL = "http://localhost:3001/api/auth";
+const API_AUTH_URL = "/api/auth";
 const API_CHAT_URL = "https://magicloops.dev/api/loop/045b2856-a6ee-4796-ba19-3331109bfa4c/run";
 
 // Obtener usuario autenticado
@@ -18,7 +18,6 @@ export const fetchAuthenticatedUser = async () => {
   }
 };
 
-// Enviar mensaje al chatbot IA
 // Enviar mensaje al chatbot IA
 export const sendMessageToAI = async (input) => {
     try {

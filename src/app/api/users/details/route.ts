@@ -16,7 +16,7 @@ export async function GET() {
 
     console.log("✅ Token encontrado, enviando petición al backend...");
 
-    const response = await fetch("http://localhost:3001/api/users/details", {
+    const response = await fetch("/api/users/details", {
       headers: { Authorization: `Bearer ${token}` },
       credentials: "include",
     });
@@ -52,7 +52,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const response = await fetch("http://localhost:3001/api/users/details", {
+    const response = await fetch("/api/users/details", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -87,7 +87,7 @@ export async function DELETE(req: Request) {
   }
 
   try {
-    const response = await fetch("http://localhost:3001/api/users/details", {
+    const response = await fetch("/api/users/details", {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`,

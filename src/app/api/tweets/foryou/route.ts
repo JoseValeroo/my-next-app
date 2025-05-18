@@ -9,7 +9,7 @@ export async function GET() {
       return NextResponse.json({ error: "No autenticado" }, { status: 401 });
     }
 
-    const response = await fetch("http://localhost:3001/api/tweets/foryou", {
+    const response = await fetch("/api/tweets/foryou", {
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-const API_BASE_URL = "http://localhost:3001/api/followers/follow";
+const API_BASE_URL = "/api/followers/follow";
 
 // 📌 POST /api/followers/follow → Seguir a un usuario
 export async function POST(req) {

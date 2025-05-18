@@ -4,7 +4,7 @@ export async function GET(request) {
   try {
     const cookie = request.headers.get("cookie"); // 🔥 Reenviamos la cookie del usuario
 
-    const res = await fetch("http://localhost:3001/api/tweets/admin/all", {
+    const res = await fetch("/api/tweets/admin/all", {
       method: "GET",
       headers: {
         Cookie: cookie,

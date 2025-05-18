@@ -25,7 +25,7 @@ export async function PUT(req, context) {
 
     console.log(`🔄 Enviando PUT a backend con ID: ${tweetId} y texto: ${tweet_text}`);
 
-    const response = await fetch(`http://localhost:3001/api/tweets/edit/${tweetId}`, {
+    const response = await fetch(`/api/tweets/edit/${tweetId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

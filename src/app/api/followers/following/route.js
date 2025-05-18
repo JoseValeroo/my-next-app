@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 
-const API_BASE_URL = "http://localhost:3001/api/followers/following";
+const API_BASE_URL = "/api/followers/following";
 
 export async function GET() {
   try {

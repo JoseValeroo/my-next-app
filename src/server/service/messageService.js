@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/api/messages";
+const API_URL = "/api/messages";
 
 // Buscar usuario
 export const fetchUserByQuery = async (query) => {
@@ -46,7 +46,7 @@ export const sendMessage = async ({ receiverId, content }) => {
 
 // Obtener usuarios con intereses similares
 export const fetchSimilarInterests = async () => {
-  const res = await fetch("http://localhost:3001/api/messages/similar-interests", {
+  const res = await fetch("api/messages/similar-interests", {
     method: "GET",
     credentials: "include"
   });
@@ -55,7 +55,7 @@ export const fetchSimilarInterests = async () => {
 };
 
 export const fetchFollowing = async () => {
-    const res = await fetch("http://localhost:3001/api/messages/followed-users", {
+    const res = await fetch("api/messages/followed-users", {
       method: "GET",
       credentials: "include"
     });
@@ -64,7 +64,7 @@ export const fetchFollowing = async () => {
   };
   
   export const fetchRecentChats = async () => {
-    const res = await fetch("http://localhost:3001/api/messages/contacts", {
+    const res = await fetch("/api/messages/contacts", {
       method: "GET",
       credentials: "include"
     });

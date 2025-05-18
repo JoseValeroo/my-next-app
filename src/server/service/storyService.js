@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/api/stories";
+const API_URL = "/api/stories";
 
 export const uploadStory = async (file, description) => {
   const formData = new FormData();

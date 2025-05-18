@@ -9,7 +9,7 @@ const createTweet = async (req, res) => {
     
     // Procesar archivos subidos
     const mediaUrls = req.files?.map(file => 
-      `http://localhost:3001/uploads/${file.filename}` // ✅ Correcto
+      `/uploads/${file.filename}` // ✅ Correcto
     ) || [];
 
     const query = `

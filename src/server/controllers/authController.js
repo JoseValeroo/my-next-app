@@ -100,9 +100,10 @@ const loginUser = async (req, res) => {
         );
 
         res.cookie("token", token, {
-            httpOnly: true,
-            secure: false, // Cambia a true si usas HTTPS
-            sameSite: "lax",
+          httpOnly: true,
+          secure: false,     // HTTP en tu LAN
+          sameSite: "lax",   // permite POST de formularios/fetch
+          path: "/"
         });
 
         // 🔥 Guardar el último inicio de sesión en la base de datos
@@ -154,6 +155,8 @@ const getUserProfile = async (req, res) => {
       const user = result.recordset[0];
   
       res.json({
+      authenticated: true,
+      user: {
         user_id: user.user_id,
         user_handle: user.user_handle,
         email: user.email_address,
@@ -168,6 +171,7 @@ const getUserProfile = async (req, res) => {
         role: user.user_role,
         followers: user.followers,
         following: user.following,
+      },
       });
     } catch (error) {
       console.error("❌ Error obteniendo perfil:", error);

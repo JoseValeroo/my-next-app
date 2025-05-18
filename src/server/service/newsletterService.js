@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/api/newsletter";
+const API_URL = "/api/newsletter";
 
 export const subscribeNewsletter = async (communityId) => {
 

@@ -16,7 +16,7 @@ export function AuthProvider({ children }) {
     const fetchUser = async () => {
       try {
         console.log("🧠 Comprobando autenticación desde AuthContext...");
-        const res = await fetch("/api/auth/me", { credentials: "include" });
+        const res = await fetch("/api/auth/profile", { credentials: "include" });
         const data = await res.json();
 
         if (data.authenticated) {
@@ -40,7 +40,7 @@ export function AuthProvider({ children }) {
   // 🔒 Cerrar sesión
   const logout = async () => {
     try {
-      await fetch("http://localhost:3001/api/auth/logout", {
+      await fetch("/api/auth/logout", {
         method: "POST",
         credentials: "include",
       });

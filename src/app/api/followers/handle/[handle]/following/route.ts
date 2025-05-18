@@ -5,7 +5,7 @@ export async function GET(_: Request, context: any) {
   const { handle } = await context.params;
 
   try {
-    const res = await fetch(`http://localhost:3001/api/followers/handle/${handle}/following`, {
+    const res = await fetch(`/api/followers/handle/${handle}/following`, {
       method: "GET",
       credentials: "include",
     });
