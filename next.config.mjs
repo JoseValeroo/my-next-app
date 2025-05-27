@@ -1,11 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  env: {
+    // variables expuestas al cliente (browser)
+    NEXT_PUBLIC_IP_BACKEND: process.env.NEXT_PUBLIC_IP_BACKEND,
+    NEXT_PUBLIC_PORT_BACKEND: process.env.NEXT_PUBLIC_PORT_BACKEND,
+  },
    async rewrites() {
+    const ip = process.env.NEXT_PUBLIC_IP_BACKEND;
+    const port = process.env.NEXT_PUBLIC_PORT_BACKEND;
     return [
-      // Primero captura TODO lo de /api/auth y lo envía a Express:
       {
         source: '/api/auth/:path*',
-        destination: 'http://192.168.1.136:3001/api/auth/:path*'
+        destination: `http://${ip}:${port}/api/auth/:path*`,
+      },
+      {
+        source: '/uploads/:path*',
+        destination: `http://${ip}:${port}/uploads/:path*`,
       },
       // // Después “cualquier otro /api” (si lo necesitas):
       // {
@@ -23,9 +33,21 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "http",
+        hostname: process.env.NEXT_PUBLIC_IP_BACKEND,
+        port: process.env.NEXT_PUBLIC_PORT_BACKEND,
+        pathname: "/uploads/**",
+      },
+      {
+        protocol: "http",
         hostname: "localhost",
         port: "3001",
         pathname: "/uploads/**",
+      },
+      {
+        protocol: 'http',
+        hostname: '192.168.1.136',
+        port: '3001',
+        pathname: '/uploads/**'
       },
       {
         protocol: 'https',

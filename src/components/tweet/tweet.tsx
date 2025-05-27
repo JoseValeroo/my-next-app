@@ -18,6 +18,7 @@ const Tweet = ({ tweet, onLike, onComment, onRetweetChange }) => {
     const [numComments, setNumComments] = useState(tweet.num_comments || 0);
     const [tweetState, setTweetState] = useState(tweet);
     const [isRetweetedLocal, setIsRetweetedLocal] = useState(tweet.retweeted || false);
+    const API_BASE =`http://${process.env.NEXT_PUBLIC_IP_BACKEND}:${process.env.NEXT_PUBLIC_PORT_BACKEND}`;
 
     const getFileNameFromUrl = (url) => {
         const parts = url.split('/');
@@ -28,7 +29,7 @@ const Tweet = ({ tweet, onLike, onComment, onRetweetChange }) => {
         if (!tweet.media_urls) return null;
         let mediaUrls = JSON.parse(tweet.media_urls);
         mediaUrls = mediaUrls.map(url =>
-            url.startsWith("http") ? url : `http://localhost:3001${url}`
+            url.startsWith("http") ? url : `${API_BASE}${url}`
         );
 
         return (

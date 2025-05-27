@@ -15,8 +15,13 @@ const cron = require('node-cron');
 const newsController = require('./controllers/newsController'); // 📌 Importamos el controlador de noticias
 const path = require('path');
 
+require('dotenv').config({
+  path: path.resolve(__dirname, '../../.env')
+});
+
+
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT_BACKEND;
 const adminRoutes = require("./routes/adminRoutes");
 const cryptoRoutes = require('./routes/cryptoRoutes');
 
@@ -69,7 +74,11 @@ app.use('/api/crypto', cryptoRoutes);
 
 // Servidor
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
+  console.log(`🚀 Servidor corriendo en http://${process.env.IP_BACKEND}:${PORT}`);
+  console.log('__dirname:', __dirname);
+  console.log('Cargando .env desde:', path.resolve(__dirname, '../../.env'));
+  console.log('IP_BACKEND=', process.env.IP_BACKEND);
+  console.log('PORT_BACKEND=', process.env.PORT_BACKEND);
 });
 app.get("/api/db-test", async (req, res) => {
   try {
