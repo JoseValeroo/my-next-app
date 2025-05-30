@@ -1,10 +1,12 @@
 import { NextResponse } from "next/server";
 
+const API_BASE_URL = process.env.INTERNAL_API_URL;
+
 export async function GET(request) {
   try {
     const cookie = request.headers.get("cookie"); // 🔥 Reenviamos la cookie del usuario
 
-    const res = await fetch("/api/tweets/admin/all", {
+    const res = await fetch(`${API_BASE_URL}/api/tweets/admin/all`, {
       method: "GET",
       headers: {
         Cookie: cookie,

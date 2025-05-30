@@ -89,5 +89,7 @@ const nextConfig = {
     ],
   },
 };
+console.log('IP BACKEND:', process.env.NEXT_PUBLIC_IP_BACKEND);
+
 
 export default nextConfig;

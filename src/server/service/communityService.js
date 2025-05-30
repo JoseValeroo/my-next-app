@@ -1,4 +1,5 @@
-const API_URL = "/api/community";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}/community`;
+
 
 export async function fetchUserCommunities() {
   const token = localStorage.getItem("token");
@@ -22,7 +23,7 @@ export async function fetchUserProfile() {
   const token = localStorage.getItem("token");
 
   try {
-    const response = await fetch("api/auth/profile", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/profile`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

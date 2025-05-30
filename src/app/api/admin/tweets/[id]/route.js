@@ -1,12 +1,14 @@
 import { NextResponse } from "next/server";
 
+const API_BASE_URL = process.env.INTERNAL_API_URL;
+
 export async function DELETE(request) {
   try {
     const cookie = request.headers.get("cookie"); // 🔥 Reenviamos también para DELETE
     const url = new URL(request.url);
     const id = url.pathname.split("/").pop();
 
-    const res = await fetch(`/api/tweets/admin/${id}`, {
+    const res = await fetch(`${API_BASE_URL}/api/tweets/admin/${id}`, {
       method: "DELETE",
       headers: {
         Cookie: cookie,

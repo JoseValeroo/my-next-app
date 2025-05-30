@@ -16,7 +16,7 @@ const newsController = require('./controllers/newsController'); // 📌 Importam
 const path = require('path');
 
 require('dotenv').config({
-  path: path.resolve(__dirname, '../../.env')
+  path: path.resolve(__dirname, '../../.env.local')
 });
 
 
@@ -71,6 +71,8 @@ app.use('/api/crypto', cryptoRoutes);
 //     await newsController.updateDailyNews();
 //     console.log('✅ Actualización inicial de noticias completada.');
 // })();
+console.log('Puerto backend:', process.env.PORT_BACKEND);
+
 
 // Servidor
 app.listen(PORT, "0.0.0.0", () => {
