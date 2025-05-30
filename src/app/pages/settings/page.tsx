@@ -49,11 +49,11 @@ export default function SettingsPage() {
       )}
     
       {/* Main content */}
-      <main className="flex-1 w-full md:pl-64 p-4 ml-4">
-        <div className="max-w-[1500px]">
+      <main className="flex-1 w-full md:pl-72 p-4 ml-4">
+        <div className="max-w-[1900px]">
           <div className="flex items-center space-x-4">
             <div className="flex ml-4 mt-2 mb-4 items-center px-4 text-gray-600 dark:text-white">
-                <span className="font-semibold text-xl sm:text-2xl lg:text-4xl ">Settings account</span>
+                <span className="font-semibold text-xl sm:text-2xl lg:text-4xl ">Configuración</span>
             </div>
           </div>
 
@@ -62,32 +62,32 @@ export default function SettingsPage() {
 
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               <SettingsCard
-                title="Content Filters"
-                description="Manage your content viewing preferences"
+                title="Contenido"
+                description="Gestiona tu contenido"
                 settings={[
-                  { id: "nsfw", label: "NSFW Content" },
-                  { id: "analytics", label: "Share Analytics", defaultChecked: true },
-                  { id: "marketing", label: "Marketing Emails" },
+                  { id: "nsfw", label: "Contenido no seguro (NSFW)" },
+                  { id: "analytics", label: "Compartir análisis", defaultChecked: true },
+                  { id: "marketing", label: "Emails de marketing" },
                 ]}
               />
 
               <SettingsCard
-                title="Privacy"
-                description="Manage your privacy settings"
+                title="Privacidad"
+                description="Gestiona tu privacidad"
                 settings={[
-                  { id: "public-profile", label: "Public Profile", defaultChecked: true },
-                  { id: "show-activity", label: "Show Activity", defaultChecked: true },
-                  { id: "third-party", label: "Third-party Sharing" },
+                  { id: "public-profile", label: "Perfil público", defaultChecked: true },
+                  { id: "show-activity", label: "Mostrar actividad", defaultChecked: true },
+                  { id: "third-party", label: "Compartir con terceros" },
                 ]}
               />
 
               <SettingsCard
-                title="Notifications"
-                description="Configure your notification preferences"
+                title="Notificaciones"
+                description="Gestiona tu notificaciones"
                 settings={[
-                  { id: "email-notif", label: "Email Notifications", defaultChecked: true },
-                  { id: "push-notif", label: "Push Notifications", defaultChecked: true },
-                  { id: "updates", label: "Product Updates", defaultChecked: true },
+                  { id: "email-notif", label: "Notificaciones Email", defaultChecked: true },
+                  { id: "push-notif", label: "Notificaciones Push", defaultChecked: true },
+                  { id: "updates", label: "Actualizaciones de producto", defaultChecked: true },
                 ]}
               />
             </div>

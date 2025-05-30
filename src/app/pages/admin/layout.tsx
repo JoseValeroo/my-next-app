@@ -18,29 +18,29 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="h-full">
-      <header className="h-12 bg-white dark:bg-gray-900 border-b border-zinc-200 dark:border-zinc-700 flex items-center justify-between px-4">
-        <h1 className="text-lg font-medium text-gray-900 dark:text-white">Admin Dashboard</h1>
+      <header className="h-20 bg-white dark:bg-gray-900 border-b border-zinc-200 dark:border-zinc-700 flex items-center justify-between px-4">
+        <h1 className="text-2xl text-gray-900 dark:text-white">Panel de administrador</h1>
         <div className="flex items-center gap-4">
           <button className="p-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800">
-            <Bell className="h-5 w-5 text-zinc-600 dark:text-white" />
+            <Bell className="h-7 w-7 text-zinc-600 dark:text-white" />
           </button>
           <button
             className="p-1.5 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800"
             onClick={() => router.push("/pages/settings")}
           >
-            <Settings className="h-5 w-5 text-zinc-600 dark:text-white" />
+            <Settings className="h-7 w-7 text-zinc-600 dark:text-white" />
           </button>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Avatar className="h-8 w-8 border border-gray-300 dark:border-gray-600 cursor-pointer">
+              <Avatar className="h-10 w-10 border border-gray-300 dark:border-gray-600 cursor-pointer">
                 <AvatarImage src={user?.avatarUrl} alt="Admin Avatar" />
                 <AvatarFallback>
-                  <User className="h-4 w-4 text-gray-500 dark:text-gray-400" />
+                  <User className="h-8 w-8 text-gray-500 dark:text-gray-400" />
                 </AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="bg-white">
-              <DropdownMenuItem onClick={() => router.push("/")}>Ir al home</DropdownMenuItem>
+              <DropdownMenuItem onClick={() => router.push("/")}>Ir a inicio</DropdownMenuItem>
               <DropdownMenuItem onClick={logout}>Cerrar sesión</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
