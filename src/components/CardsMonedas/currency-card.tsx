@@ -46,8 +46,10 @@ export function CurrencyCard({ pair }: CurrencyCardProps) {
 
       while (retries > 0) {
         try {
-          const url = `/api/crypto/chart?coin=${pair.base}&currency=${pair.quote}`;
+          const url = `http://${process.env.NEXT_PUBLIC_IP_BACKEND}:${process.env.NEXT_PUBLIC_PORT_BACKEND}` +
+            `/api/crypto/chart/${pair.base}/${pair.quote}`;
           const response = await fetch(url);
+
           const data = await response.json();
 
           console.log('📊 Datos recibidos del backend:', data);
