@@ -4,7 +4,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/settings_C/tooltip";
 import { fetchUserActivity } from "@/server/service/userService";
-import useSWR from 'swr';
+import { useQuery } from "@tanstack/react-query";
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth } from 'date-fns';
 import { es } from 'date-fns/locale';
 
@@ -114,7 +114,11 @@ function ColorLegend() {
 }
 
 export function ActivityHeatmap() {
-  const { data: activityData, error } = useSWR<ActivityData[]>('/api/users/activity', fetchUserActivity);
+  const { data: activityData, error, isLoading } = useQuery<ActivityData[]>({
+  queryKey: ['userActivity'],
+  queryFn: fetchUserActivity,
+});
+
   const today = new Date();
   const monthStart = startOfMonth(today);
   const monthEnd = endOfMonth(today);

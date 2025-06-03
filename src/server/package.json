@@ -24,6 +24,7 @@
         "node-cron": "^3.0.3",
         "node-fetch": "^2.7.0",
         "pdfkit": "^0.17.0",
-        "react-router-dom": "^7.1.0"
+        "react-router-dom": "^7.1.0",
+        "swr": "^2.3.3"
     }
 }
