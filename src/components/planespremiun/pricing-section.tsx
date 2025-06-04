@@ -7,21 +7,36 @@ import { Button } from "@/components/ui/button"
 export default function PricingSection() {
   const plans = [
     {
-      name: "Monthly",
+      name: "Mensual",
       price: "9.99",
-      features: ["All Lure Originals", "Watch on Lure app", "Share with family"],
+      features: [
+        "Todo el contenido original de Lure",
+        "Disponible en la app de Lure",
+        "Comparte con tu familia"
+      ],
     },
     {
-      name: "Annual",
+      name: "Anual",
       price: "19.99",
-      features: ["All Lure Originals", "Watch on Lure app", "Share with family", "Save with yearly plan"],
+      features: [
+        "Todo el contenido original de Lure",
+        "Disponible en la app de Lure",
+        "Comparte con tu familia",
+        "Ahorra con el plan anual"
+      ],
     },
     {
       name: "Premium",
       price: "29.99",
-      features: ["All Lure Originals", "Watch on Lure  app", "Share with family", "4K HDR", "Offline downloads"],
+      features: [
+        "Todo el contenido original de Lure",
+        "Disponible en la app de Lure",
+        "Comparte con tu familia",
+        "Calidad 4K HDR",
+        "Descargas sin conexión"
+      ],
     }
-  ]
+  ];
 
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-gray-100 to-gray-400 dark:from-gray-950 dark:to-gray-800 px-4 py-12">
