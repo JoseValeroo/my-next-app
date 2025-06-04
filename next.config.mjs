@@ -1,10 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  devIndicators: {
+    buildActivity: false,
+  },
+
   images: {
     domains: [
       'imagenes.elpais.com',
-      'ejemplo.com', // Agrega el dominio de la imagen por defecto
-      // puedes agregar otros dominios si es necesario
+      'ejemplo.com',
     ],
     remotePatterns: [
       {
@@ -23,7 +26,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com', // Nuevo dominio agregado
+        hostname: 'hebbkx1anhila5yf.public.blob.vercel-storage.com',
       },
       {
         protocol: "https",
@@ -31,20 +34,20 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "i.imgur.com", // 🔥 Agregado para Imgur
-      },
-      {
-        protocol: "https",
-        hostname: "seranking.com", // 🔥 Agregado para Seranking
+        hostname: "i.imgur.com",
       },
       {
         protocol: "https",
         hostname: "seranking.com",
-        pathname: "/es/blog/wp-content/uploads/**", // 🔥 Asegura permitir cualquier imagen dentro de esa ruta
       },
       {
         protocol: "https",
-        hostname: "static.vecteezy.com", // 🔥 Añadido para permitir imágenes de vecteezy
+        hostname: "seranking.com",
+        pathname: "/es/blog/wp-content/uploads/**",
+      },
+      {
+        protocol: "https",
+        hostname: "static.vecteezy.com",
       },
       {
         protocol: "https",
