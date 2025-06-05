@@ -14,3 +14,5 @@ export default function NoticiasLayout({
 }) {
   return <>{children}</>;
 }
+
+
