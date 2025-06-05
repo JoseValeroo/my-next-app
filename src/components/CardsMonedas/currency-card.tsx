@@ -1,3 +1,5 @@
+
+
 'use client';
 
 import { motion } from 'framer-motion';
@@ -17,8 +19,15 @@ import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 import { useTheme } from 'next-themes';
 
+// ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend);
 
+// interface Pair {
+//   base: string;
+//   quote: string;
+//   value: number;
+//   change: number;
+// }
 interface Pair {
   base: string;
   quote: string;
@@ -26,42 +35,43 @@ interface Pair {
   change: number;
 }
 
+// interface CurrencyCardProps {
+//   pair: Pair;
+// }
 interface CurrencyCardProps {
   pair: Pair;
 }
 
+// export function CurrencyCard({ pair }: CurrencyCardProps) {
+//   const [chartData, setChartData] = useState<any>(null);
+//   const { resolvedTheme } = useTheme();
 export function CurrencyCard({ pair }: CurrencyCardProps) {
   const [chartData, setChartData] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const { resolvedTheme } = useTheme();
 
+//   useEffect(() => {
+//     if (typeof window === "undefined") return;
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
     let isMounted = true;
-
     const fetchChartData = async () => {
       let retries = 3;
-
       while (retries > 0) {
         try {
-          const url = `/api/crypto/chart?coin=${pair.base}&currency=${pair.quote}`;
+          // Usar CoinGecko para evitar límites de CoinCap
+          const url = `https://api.coingecko.com/api/v3/coins/${pair.base}/market_chart?vs_currency=${pair.quote}&days=7&interval=daily`;
           const response = await fetch(url);
           const data = await response.json();
 
-          console.log('📊 Datos recibidos del backend:', data);
-
-          if (!response.ok) {
-            throw new Error('Error en la respuesta del servidor');
-          }
-
-          if (!data || !data.prices || !Array.isArray(data.prices)) {
-            throw new Error('Datos del gráfico no disponibles');
+          if (!response.ok || !data.prices?.length) {
+            //throw new Error(data.error || 'No se pudo obtener datos desde CoinGecko.');
+            setError('No pudimos cargar los datos. Inténtalo más tarde.');
           }
 
           if (!isMounted) return;
-
           setChartData({
             labels: data.prices.map((p: [number, number]) =>
               format(new Date(p[0]), 'dd MMM', { locale: es })
@@ -81,11 +91,10 @@ export function CurrencyCard({ pair }: CurrencyCardProps) {
               },
             ],
           });
-
           setError(null);
           return;
         } catch (err: any) {
-          console.error('❌ Error al cargar datos del gráfico:', err);
+          console.error('Error al cargar datos del gráfico:', err);
           retries -= 1;
           if (retries === 0 && isMounted) {
             setError(err.message || 'Error desconocido');
